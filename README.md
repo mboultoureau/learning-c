@@ -1,2 +1,2 @@
-# learning-c
+# Learning C
 This repository will contain all the projects I have done while learning C language.
