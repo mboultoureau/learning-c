@@ -8,21 +8,19 @@
 
 #include "game.h"
 
+void render(void);
 void displayBoard(void);
 void displayXAndO(void);
 void displayWinner(void);
 void checkWinner(void);
 
 int playerTurn = 1, winner = 0;
-int board[3][3] = {
-    {0, 0, 0},
-    {0, 0, 0},
-    {0, 0, 0}
-};
+int board[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 SDL_Renderer* renderer;
 
 void displayGame(SDL_Renderer* r) {
     renderer = r;
+    render();
     
     int keepPlaying = 1;
     
@@ -37,42 +35,51 @@ void displayGame(SDL_Renderer* r) {
                 break;
             }
             
-            if (event.type == SDL_MOUSEBUTTONUP && board[event.button.y / 200][event.button.x / 200] == 0 && winner == 0) {
-                board[event.button.y / 200][event.button.x / 200] = playerTurn;
+            if (event.type == SDL_MOUSEBUTTONUP && board[3 * ((event.button.y - 56) / 200) + event.button.x / 200] == 0 && winner == 0 && event.button.y > 56) {
+                board[3 * ((event.button.y - 56) / 200) + event.button.x / 200] = playerTurn;
                 playerTurn = (playerTurn == 1) ? 2 : 1;
-                        
+                    
                 checkWinner();
+                render();
             }
-            
+
             if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_r) {
                 playerTurn = 1;
                 winner = 0;
-                int i, j;
-                for (i = 0; i < 3; i++) {
-                    for (j = 0; j < 3; j++) {
-                        board[i][j] = 0;
-                    }
+                int i;
+                for (i = 0; i < 9; i++) {
+                    board[i] = 0;
                 }
+                
+                render();
             }
         }
-
-        // Graphic processing
-        SDL_RenderClear(renderer);
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         
-        displayBoard();
-        displayXAndO();
-        displayWinner();
-                
-        SDL_RenderPresent(renderer);
-        
-        SDL_Delay(16); // 60 FPS
+        SDL_Delay(16);
     }
+}
+
+void render() {
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderClear(renderer);
+    
+    displayBoard();
+    displayXAndO();
+    displayWinner();
+    renderToolbar(renderer);
+    
+    SDL_RenderPresent(renderer);
+    SDL_Delay(16);
 }
 
 void displayBoard() {
     SDL_Texture* boardTexture = IMG_LoadTexture(renderer, "resources/Board.png");
-    SDL_RenderCopy(renderer, boardTexture, NULL, NULL);
+    SDL_Rect rect;
+    rect.x = 0;
+    rect.y = 56;
+    rect.w = 600;
+    rect.h = 600;
+    SDL_RenderCopy(renderer, boardTexture, NULL, &rect);
     SDL_DestroyTexture(boardTexture);
 }
 
@@ -83,25 +90,22 @@ void displayXAndO() {
     dstrect.w = 200;
     dstrect.h = 200;
     
-    int x, y;
-    for (y = 0; y < 3; y++) {
-        for (x = 0; x < 3; x++) {
-            dstrect.x = x * 200;
-            dstrect.y = y * 200;
-            
-            if (board[y][x] == 1)
-                SDL_RenderCopy(renderer, xTexture, NULL, &dstrect);
-            else if (board[y][x] == 2)
-                SDL_RenderCopy(renderer, oTexture, NULL, &dstrect);
-        }
+    int i;
+    for (i = 0; i < 9; i++) {
+        dstrect.x = i % 3 * 200;
+        dstrect.y = (i - (i % 3)) / 3 * 200 + 56;
+
+        if (board[i] == 1)
+            SDL_RenderCopy(renderer, xTexture, NULL, &dstrect);
+        else if (board[i] == 2)
+            SDL_RenderCopy(renderer, oTexture, NULL, &dstrect);
     }
     
     SDL_DestroyTexture(xTexture);
     SDL_DestroyTexture(oTexture);
 }
 
-void displayWinner()
-{
+void displayWinner() {
     SDL_Rect dstrect;
     dstrect.w = 600;
     dstrect.h = 300;
@@ -122,14 +126,6 @@ void displayWinner()
 }
 
 void checkWinner() {
-    int boardCheck[9];
-    int x, y;
-    for (y = 0; y < 3; y++) {
-        for (x = 0; x < 3; x++) {
-            boardCheck[y * 3 + x] = board[y][x];
-        }
-    }
-    
     int winningBoards[8][3] = {
         {0, 1, 2},
         {3, 4, 5},
@@ -141,27 +137,15 @@ void checkWinner() {
         {6, 4, 2}
     };
     
-    int i, j, player, combo;
-    for (i = 0; i < 8; i++) {
-        player = 0;
-        combo = 0;
-
-        for (j = 0; j < 3; j++) {
-            if (boardCheck[winningBoards[i][j]] == 0) {
-                break;
-            }
-
-            if (j == 0) {
-                player = boardCheck[winningBoards[i][j]];
-                combo++;
-            } else if (boardCheck[winningBoards[i][j]] == player && combo == 2) {
-                winner = player;
-                return;
-            } else if (boardCheck[winningBoards[i][j]] == player) {
-                combo++;
-            } else {
-                break;
-            }
+    int i;
+    for(i = 0; i < 8; i++) {
+        if (
+            board[winningBoards[i][0]] == board[winningBoards[i][1]] &&
+            board[winningBoards[i][1]] == board[winningBoards[i][2]] &&
+            (board[winningBoards[i][0]] == 1 || board[winningBoards[i][0]] == 2)
+        ) {
+            winner = board[winningBoards[i][0]];
+            return;
         }
     }
 }
