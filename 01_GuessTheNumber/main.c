@@ -30,7 +30,7 @@ int main(int argc, const char * argv[]) {
                 printf("2. Between 1              and 1 000\n");
                 printf("3. Between -1 000         and 1 000\n");
                 printf("4. Between -10 000        and 10 000\n");
-                printf("5. Between -10 000        and 100\n");
+                printf("5. Between -100 000        and 100 000\n");
                 printf("6. Between -1 000 000 000 and 1 000 000 000\n");
                 printf("7. Between -2 000 000 000 and 2 000 000 000\n");
                 scanf("%d", &difficulty);
@@ -47,8 +47,8 @@ int main(int argc, const char * argv[]) {
                     max = 1000;
                     break;
                 case 3:
-                    min = 1;
-                    max = 10000;
+                    min = -1000;
+                    max = 1000;
                     break;
                 case 4:
                     min = -10000;
