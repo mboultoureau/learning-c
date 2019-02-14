@@ -1,2 +1,2 @@
-# Learning C
-This repository will contain all the projects I have done while learning C language.
+# Coding Challenges
+This repository contains various challenge codings performed in C, C++ and JavaScript.
