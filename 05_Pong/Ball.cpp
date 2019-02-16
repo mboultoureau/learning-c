@@ -41,7 +41,6 @@ void Ball::update(Player &player1, Player &player2)
         player2.increaseScore();
         position = sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
         velocity = sf::Vector2f(random(-BALL_SPEED, BALL_SPEED), random(-BALL_SPEED, BALL_SPEED));
-        velocity = sf::Vector2f(-1, 0);
     }
     
     if (position.x > WINDOW_WIDTH)
@@ -49,7 +48,6 @@ void Ball::update(Player &player1, Player &player2)
         player1.increaseScore();
         position = sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
         velocity = sf::Vector2f(random(-BALL_SPEED, BALL_SPEED), random(-BALL_SPEED, BALL_SPEED));
-        velocity = sf::Vector2f(-1, 0);
     }
     
     if (collision.intersects(player1.getPaddleCollision())) {

@@ -21,4 +21,8 @@ const float PADDLE_HEIGHT = 70.f;
 const float PADDLE_WIDTH = 10.f;
 const float PADDLE_INCREMENT = 20.f;
 
+const float LINE_HEIGHT = 5.f;
+const float LINE_WIDTH = 5.f;
+const float LINE_SPACING = 10.f;
+
 #endif /* Constants_hpp */

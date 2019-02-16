@@ -15,7 +15,7 @@
 
 int main(int, char const**)
 {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pong");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pong", sf::Style::Titlebar | sf::Style::Close);
     
     Player player1(sf::Vector2f(50.f, WINDOW_HEIGHT / 2)), player2(sf::Vector2f(WINDOW_WIDTH - 50.f, WINDOW_HEIGHT / 2));
     Ball ball;
@@ -62,6 +62,14 @@ int main(int, char const**)
         player1.move(mousePosition.y);
 
         window.clear(sf::Color::Black);
+        
+        // Draw the dividing line of the court
+        sf::RectangleShape rectangle(sf::Vector2f(LINE_WIDTH, LINE_HEIGHT));
+        for (int i = 0; i < WINDOW_HEIGHT / (LINE_HEIGHT + LINE_SPACING); i++)
+        {
+            rectangle.setPosition(WINDOW_WIDTH / 2 - LINE_WIDTH / 2, i * (LINE_HEIGHT + LINE_SPACING));
+            window.draw(rectangle);
+        }
         
         sf::Font font;
         if (!font.loadFromFile(resourcePath() + "bit5x3.ttf")) {
