@@ -6,3 +6,6 @@
 - Playing between two players
 - Displays a victory screen
 - Possibility to play again by pressing R
+
+## Credits
+Typeface : [Roboto](https://fonts.google.com/specimen/Roboto)
