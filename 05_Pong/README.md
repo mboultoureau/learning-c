@@ -1,6 +1,6 @@
 # Pong
 
-![ScreenShot](/05_Pong/ScreenShot.png?raw=true "OScreenshot of the Pong game")
+![ScreenShot](/05_Pong/ScreenShot.png?raw=true "Screenshot of the Pong game")
 
 - The player on the left can control the paddle with the mouse.
 - The player on the right can control the paddle with the up and down arrows.
