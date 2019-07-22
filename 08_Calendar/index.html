@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calendrier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <noscript>
+        <p>Malheureusement, l'application Calendrier nécessite JavaScript pour fonctionner. Activer JavaScript ou utiliser un navigateur plus récent.</p>
+    </noscript>
+    <div class="splash">
+        <div class="calendar-icon">
+            <div class="top"></div>
+            <div class="bottom"></div>
+            <div class="shadow"></div>
+            <div class="text" id="icon-day">1</div>
+        </div>
+        <h1>Calendrier</h1>
+    </div>
+    <section class="calendar">
+        <header>
+            <div class="left-button">
+                <button id="previous-month">←</button>
+                <button id="back-to-present">Aujourd'hui</button>
+            </div>
+            <div class="title">
+                <h2 id="calendar-title">Août 2019</h2>
+            </div>
+            <div class="right-button">
+                <button id="next-month">→</button>
+            </div>
+        </header>
+        <div class="date-of-week">
+            <div>LUN</div>
+            <div>MAR</div>
+            <div>MER</div>
+            <div>JEU</div>
+            <div>VEN</div>
+            <div>SAM</div>
+            <div>DIM</div>
+        </div>
+        <div class="date-grid" id="date-grid">
+        </div>
+    </section>
+    <section class="events">
+        <div class="separator"></div>
+        <header>
+            <button>+ Ajouter</button>
+            <button>⬇ Télécharger</button>
+        </header>
+        <article>
+            <p>Le système d'événements est toujours en cours d'élaboration. Seul le calendrier est fonctionnel pour le moment.</p>
+        </article>
+        <div class="events-month">
+            <h3>En décembre</h3>
+            <div class="event">
+                <time datetime="2019-12-25">25</time>
+                <p>Noël</p>
+            </div>
+        </div>
+        <div class="events-month">
+            <h3>En février</h3>
+            <div class="event">
+                <time datetime="2020-02-19">19</time>
+                <p>Anniversaire de Mathis</p>
+            </div>
+        </div>
+        <footer>
+            <p>Créé par Mathis Boultoureau</p>
+        </footer>
+    </section>
+    <script src="calendar.js"></script>
+</body>
+</html>
