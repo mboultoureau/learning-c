@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board {
+    background: rgb(189, 173, 158);
+    width: 480px;
+    height: 480px;
+    border-radius: 1.3em;
+    padding: 20px;
+}
+
+.row {
+    height: 110px;
+    display: flex;
+}
+
+.cell {
+    background: rgb(207, 193, 179);
+    height: 100px;
+    width: 100px;
+    margin: 5px;
+    border-radius: 0.3em;
+}
+
+.card {
+    height: 100px;
+    width: 100px;
+    border-radius: 0.1em;
+    color: rgb(120, 110, 100);
+    font-size: 3em;
+    line-height: 100px;
+    text-align: center;
+    z-index: 5;
+}
+
+.number-2 {
+    background: rgb(240, 228, 217);
+}
+
+.number-4 {
+    background: rgb(239, 225, 197);
+}
+
+.number-8 {
+    background: rgb(251, 176, 108);
+    color: #FFF;
+}
+
+.number-16 {
+    background: rgb(255, 147, 89);
+    color: #FFF;
+}
+
+.number-32 {
+    background: rgb(255, 117, 84);
+    color: #FFF;
+}
+
+.number-64 {
+    background: rgb(255, 81, 35);
+    color: #FFF;
+}
+
+.number-128 {
+    background: rgb(237, 210, 102);
+    color: #FFF;
+    font-size: 2.7em;
+}
+
+.number-256 {
+    background: rgb(241, 206, 81);
+    color: #FFF;
+    font-size: 2.7em;
+}
+
+.number-512 {
+    background: rgb(240, 203, 61);
+    color: #FFF;
+    font-size: 2.7em;
+}
+
+.number-1024 {
+    background: rgb(235, 197, 59);
+    color: #FFF;
+    font-size: 2.3em;
+}
+
+.number-2048 {
+    background: rgb(237, 193, 42);
+    color: #FFF;
+    font-size: 2.3em;
+}
