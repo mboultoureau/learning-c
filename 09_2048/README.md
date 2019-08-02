@@ -5,5 +5,4 @@
 The game of 2048.
 
 ## Future improvements
-- [ ] Add animations
 - [ ] Detect a victory and a defeat

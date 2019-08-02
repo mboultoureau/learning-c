@@ -1,156 +1,137 @@
 class Board {
     constructor(board = null) {
-        if(board) {
+        if (board) {
             this.board = board;
         } else {
+            this.board = [
+                [null, null, null, null],
+                [null, null, null, null],
+                [null, null, null, null],
+                [null, null, null, null]
+            ];
             this.reset();
         }
     }
 
     reset() {
-        this.board = [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]
-        ];
-        this.generateANewCard();
-        this.generateANewCard();
-    }
-
-    test(input, actions, expectedOutput) {
-        this.board = input;
-        actions.forEach(action => {
-            switch(action) {
-                case 'reset':
-                    this.reset();
-                    break;
-                case 'right':
-                    this.pushToRight();
-                    break;
-                case 'left':
-                    this.pushToLeft();
-                    break;
-                case 'up':
-                    this.pushToTop();
-                    break;
-                case 'down':
-                    this.pushToBottom();
-                    break;
-                case 'generate':
-                    this.generateANewCard();
-                    break;
-            }
+        this.board.forEach((row) => {
+            row.forEach((item) => {
+                if (item != null) {
+                    item.destroy();
+                }
+            });
         });
 
-        return {
-            input,
-            actions,
-            expectedOutput,
-            result: this.board.toString() == expectedOutput.toString(),
-            output: this.board
-        }
+        this.board = [
+            [null, null, null, null],
+            [null, null, null, null],
+            [null, null, null, null],
+            [null, null, null, null]
+        ];
+
+        this.generateANewCard();
+        this.generateANewCard();
     }
 
     generateANewCard() {
-        let a = Math.floor(Math.random() * 4);
-        let b = Math.floor(Math.random() * 4);
-        while(this.board[a][b] != 0) {
-            a = Math.floor(Math.random() * 4);
-            b = Math.floor(Math.random() * 4);
-        }
-        this.board[a][b] = 2;
-    }
-
-    display() {
-        for(let i = 0; i < 4; i++) {
-            for(let j = 0; j < 4; j++) {
-                let HTMLRef = document.getElementsByClassName('row')[i].getElementsByClassName('cell')[j].getElementsByClassName('card')[0];
-                if(this.board[i][j] != 0) {
-                    HTMLRef.textContent = this.board[i][j];
-                } else {
-                    HTMLRef.textContent = '';
+        let availableCells = [];
+        this.board.forEach((row, rowIndex) => {
+            row.forEach((item, itemIndex) => {
+                if (item == null) {
+                    availableCells.push({
+                        row: rowIndex,
+                        column: itemIndex
+                    });
                 }
-                HTMLRef.className = `card number-${this.board[i][j]}`;
-            }
-        }
+            });
+        });
+        let randomCell = Math.floor(Math.random() * availableCells.length);
+        let row = availableCells[randomCell].row;
+        let column = availableCells[randomCell].column;
+        this.board[row][column] = new Tile({
+            row,
+            column
+        });
     }
 
-    pushToRight() {
-        for(let r = 0; r < 4; r++) {
-            let row = this.board[r];
-            for(let origin = 3; origin > 0; origin--) {
-                stack_loop:
-                for(let i = origin - 1; i >= 0; i--) {
-                    if(row[origin] == 0 && row[i] != 0) {
-                        row[origin] = row[i];
-                        row[i] = 0;
-                    } else if(row[i] != 0 && row[i] != row[origin]) {
-                        break stack_loop;
-                    } else if(row[i] == row[origin]) {
-                        row[origin] = row[i] * 2;
-                        row[i] = 0;
+    pushToRight(board) {
+        for (let row = 0; row < 4; row++) {
+            for (let origin = 3; origin > 0; origin--) {
+                let originInitialValue = board[row][origin] ? board[row][origin].value : 0;
+                target_loop:
+                    for (let target = origin - 1; target >= 0; target--) {
+                        if (board[row][origin] != null && board[row][target] != null && board[row][origin].value != board[row][target].value) {
+                            break target_loop;
+                        } else if (board[row][origin] == null && board[row][target] != null) {
+                            originInitialValue = board[row][target].value;
+                            board[row][target].move(new Vector(row, origin), board);
+                        } else if (board[row][origin] != null && board[row][target] != null && originInitialValue == board[row][target].value) {
+                            board[row][target].destroy(new Vector(row, origin), board);
+                        }
                     }
-                }
             }
         }
+        return board;
     }
 
-    pushToLeft() {
-        for(let r = 0; r < 4; r++) {
-            let row = this.board[r];
-            for(let origin = 0; origin < 3; origin++) {
-                stack_loop:
-                for(let i = origin + 1; i < 4; i++) {
-                    if(row[origin] == 0 && row[i] != 0) {
-                        row[origin] = row[i];
-                        row[i] = 0;
-                    } else if(row[i] != 0 && row[i] != row[origin]) {
-                        break stack_loop;
-                    } else if(row[i] == row[origin]) {
-                        row[origin] = row[i] * 2;
-                        row[i] = 0;
+    pushToLeft(board) {
+        for (let row = 0; row < 4; row++) {
+            for (let origin = 0; origin < 3; origin++) {
+                let originInitialValue = board[row][origin] ? board[row][origin].value : 0;
+                target_loop:
+                    for (let target = origin + 1; target < 4; target++) {
+                        if (board[row][origin] != null && board[row][target] != null && board[row][origin].value != board[row][target].value) {
+                            break target_loop;
+                        } else if (board[row][origin] == null && board[row][target] != null) {
+                            originInitialValue = board[row][target].value;
+                            board[row][target].move(new Vector(row, origin), board);
+                        } else if (board[row][origin] != null && board[row][target] != null && originInitialValue == board[row][target].value) {
+                            board[row][target].destroy(new Vector(row, origin), board);
+                        }
                     }
-                }
             }
         }
+        return board;
     }
 
-    pushToTop() {
-        for(let c = 0; c < 4; c++) {
-            for(let origin = 0; origin < 3; origin++) {
-                stack_loop:
-                for(let i = origin + 1; i < 4; i++) {
-                    if(this.board[origin][c] == 0 && this.board[i][c] != 0) {
-                        this.board[origin][c] = this.board[i][c];
-                        this.board[i][c] = 0;
-                    } else if(this.board[i][c] != 0 && this.board [i][c] != this.board[origin][c]) {
-                        break stack_loop;
-                    } else if(this.board[i][c] == this.board[origin][c]) {
-                        this.board[origin][c] = this.board[i][c] * 2;
-                        this.board[i][c] = 0;
+    pushToTop(board) {
+        for (let column = 0; column < 4; column++) {
+            for (let origin = 0; origin < 3; origin++) {
+                let originInitialValue = board[origin][column] ? board[origin][column].value : 0;
+                target_loop:
+                    for (let target = origin + 1; target < 4; target++) {
+                        if (board[origin][column] != null && board[target][column] != null && board[origin][column].value != board[target][column].value) {
+                            break target_loop;
+                        } else if (board[origin][column] == null && board[target][column] != null) {
+                            originInitialValue = board[target][column].value;
+                            board[target][column].move(new Vector(origin, column), board);
+                        } else if (board[origin][column] != null && board[target][column] != null && originInitialValue == board[target][column].value) {
+                            board[target][column].destroy(new Vector(origin, column), board);
+                        }
                     }
-                }
             }
         }
+        return board;
     }
 
-    pushToBottom() {
-        for(let c = 0; c < 4; c++) {
-            for(let origin = 3; origin > 0; origin--) {
-                stack_loop:
-                for(let i = origin - 1; i >= 0; i--) {
-                    if(this.board[origin][c] == 0 && this.board[i][c] != 0) {
-                        this.board[origin][c] = this.board[i][c];
-                        this.board[i][c] = 0;
-                    } else if(this.board[i][c] != 0 && this.board [i][c] != this.board[origin][c]) {
-                        break stack_loop;
-                    } else if(this.board[i][c] == this.board[origin][c]) {
-                        this.board[origin][c] = this.board[i][c] * 2;
-                        this.board[i][c] = 0;
+    pushToDown(board) {
+        for (let column = 0; column < 4; column++) {
+            for (let origin = 3; origin > 0; origin--) {
+                let originInitialValue = board[origin][column] ? board[origin][column].value : 0;
+                target_loop:
+                    for (let target = origin - 1; target >= 0; target--) {
+                        if (board[origin][column] != null && board[target][column] != null && board[origin][column].value != board[target][column].value) {
+                            break target_loop;
+                        } else if (board[origin][column] == null && board[target][column] != null) {
+                            originInitialValue = board[target][column].value;
+                            board[target][column].move(new Vector(origin, column), board);
+                        } else if (board[origin][column] != null && board[target][column] != null && originInitialValue == board[target][column].value) {
+                            board[target][column].destroy(new Vector(origin, column), board);
+                        }
                     }
-                }
             }
         }
+        return board;
     }
+
 }

@@ -10,64 +10,52 @@
 </head>
 
 <body>
-    <div class="board">
-        <div class="row">
-            <div class="cell">
-                <div class="card"></div>
+
+    <header>
+        <h1>2048</h1>
+        <div class="play-again button">Play again</div>
+    </header>
+    <div class="game">
+
+        <div class="board">
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
             </div>
-            <div class="cell">
-                <div class="card"></div>
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
             </div>
-            <div class="cell">
-                <div class="card"></div>
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
             </div>
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-            <div class="cell">
-                <div class="card"></div>
+            <div class="row">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
             </div>
         </div>
-        <div class="row">
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-            <div class="cell">
-                <div class="card"></div>
-            </div>
-            <div class="cell">
-                <div class="card"></div>
+
+        <div class="tiles"></div>
+        <div class="victory">
+            <h2>🥳</h2>
+            <p>Congratulations, you won!</p>
+            <div>
+                <div class="play-again button">Play again</div>
+                <div class="continue button">Continue</div>
             </div>
         </div>
     </div>
+
+    <script src="tile.js"></script>
     <script src="board.js"></script>
     <script src="game.js"></script>
     <!-- <script src="tests.js"></script> -->

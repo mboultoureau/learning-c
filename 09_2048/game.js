@@ -1,28 +1,79 @@
 let board = new Board();
-board.display();
+let previousState = JSON.stringify(board.board);
 
-function play() {
-    board.generateANewCard();
-    board.display();
+function play(action) {
+    if (action.type == 'direction') {
+        switch (action.direction) {
+            case 'right':
+                board.pushToRight(board.board);
+                break;
+            case 'left':
+                board.pushToLeft(board.board);
+                break;
+            case 'up':
+                board.pushToTop(board.board);
+                break;
+            case 'down':
+                board.pushToDown(board.board);
+                break;
+        }
+
+        if(previousState != JSON.stringify(board.board)) {
+            board.generateANewCard();
+        }
+
+        previousState = JSON.stringify(board.board)
+    }
+
+    if (action.type == 'manage') {
+        switch (action.action) {
+            case 'reset':
+                board.reset();
+                break;
+        }
+
+        previousState = JSON.stringify(board.board)
+    }
 }
 
 document.addEventListener('keydown', (event) => {
-    switch(event.key) {
+    switch (event.key) {
         case 'ArrowRight':
-            board.pushToRight();
-            play();
+            play({
+                type: 'direction',
+                direction: 'right'
+            });
             break;
         case 'ArrowLeft':
-            board.pushToLeft();
-            play();
+            play({
+                type: 'direction',
+                direction: 'left'
+            });
             break;
         case 'ArrowUp':
-            board.pushToTop();
-            play();
+            play({
+                type: 'direction',
+                direction: 'up'
+            });
             break;
         case 'ArrowDown':
-            board.pushToBottom();
-            play();
+            play({
+                type: 'direction',
+                direction: 'down'
+            });
+            break;
+        case 'r':
+            play({
+                type: 'manage',
+                action: 'reset'
+            });
             break;
     }
 });
+
+document.querySelector('.play-again').addEventListener('click', (event) => {
+    play({
+        type: 'manage',
+        action: 'reset'
+    });
+})
