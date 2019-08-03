@@ -31,8 +31,6 @@ class Board {
         this.generateBombs();
         this.calculateGrid();
         this.display();
-
-        console.log(this._grid);
     }
 
     generateBlankGrid() {
@@ -154,11 +152,25 @@ class Board {
                     return;
                 }
 
+                // 0 * *
+                // * T *
+                // * * *
+                if (y > 0 && x > 0 && !this._grid[x - 1][y - 1].isChecked) {
+                    this.propagateRevelation({ x: x - 1, y: y - 1 });
+                }
+
                 // * 0 *
                 // * T *
                 // * * *
                 if (y > 0 && !this._grid[x][y - 1].isChecked) {
                     this.propagateRevelation({ x: x, y: y - 1 });
+                }
+
+                // * * 0
+                // * T *
+                // * * *
+                if (y > 0 && x < this.width - 1 && !this._grid[x + 1][y + 1].isChecked) {
+                    this.propagateRevelation({ x: x + 1, y: y - 1 });
                 }
 
                 // * * *
@@ -177,9 +189,23 @@ class Board {
 
                 // * * *
                 // * T *
+                // 0 * *
+                if (y < this._height - 1 && x > 0 && !this._grid[x - 1][y + 1].isChecked) {
+                    this.propagateRevelation({ x: x - 1, y: y + 1 });
+                }
+
+                // * * *
+                // * T *
                 // * 0 *
                 if (y < this._height - 1 && !this._grid[x][y + 1].isChecked) {
                     this.propagateRevelation({ x: x, y: y + 1 });
+                }
+
+                // * * *
+                // * T *
+                // * * 0
+                if (y < this._height - 1 && x < this.width - 1 && !this._grid[x - 1][y + 1].isChecked) {
+                    this.propagateRevelation({ x: x + 1, y: y + 1 });
                 }
 
             } else {

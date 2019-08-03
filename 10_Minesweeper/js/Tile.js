@@ -37,6 +37,9 @@ class Tile {
         if (this._isReveal) {
             this._html.classList.add('reveal');
             this._html.classList.add(`value-${this._value}`);
+            if (this._html.classList.contains('flag')) {
+                this._html.classList.remove('flag');
+            }
             if (this.isBomb) {
                 this._html.classList.add('bomb');
             } else if (this._value != 0) {
@@ -62,6 +65,24 @@ class Tile {
             board.display();
             return false;
         }, false);
+
+
+        let timer;
+
+        this._html.addEventListener('touchstart', (event) => {
+            timer = setTimeout(() => {
+                event.preventDefault();
+                this.toggleHasFlag(board);
+                board.display();
+                return false;
+            }, 1000);
+        });
+
+        this._html.addEventListener('touchend', () => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+        });
     }
 
     toggleHasFlag() {

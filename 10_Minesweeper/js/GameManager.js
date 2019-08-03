@@ -6,7 +6,7 @@ class GameManager {
         this._timer = new Timer({ timerHTML: this._timerHTML });
 
         this._scoreHTML = this._html.querySelector('.score');
-        this._score = new Score({ scoreHTML: this._scoreHTML });
+        this._score = new Score({ scoreHTML: this._scoreHTML, timer: this._timer });
 
         this._board = new Board({ width: 7, height: 7, numberOfBombs: 5, gameHTML: this._html, gameManager: this, score: this._score });
         this._board.display();
@@ -19,6 +19,7 @@ class GameManager {
         this._timer.reset();
         this._board.reset();
         this._score.reset();
+        this._html.querySelector('.reset').textContent = '🙂';
     }
 
     victory() {

@@ -1,6 +1,7 @@
 class Score {
-    constructor({ scoreHTML }) {
+    constructor({ scoreHTML, timer }) {
         this._html = scoreHTML;
+        this.timer = timer;
         this.score = 0;
         this.display();
     }
@@ -22,6 +23,9 @@ class Score {
 
     increment() {
         this.score = this.score + 1;
+        if (this.score === 1) {
+            this.timer.start();
+        }
         this.display();
     }
 }

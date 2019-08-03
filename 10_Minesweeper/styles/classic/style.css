@@ -95,8 +95,8 @@
 .classic .game .board .tile {
   padding: 20px;
   border: 1px solid #000;
-  width: 10px;
-  height: 10px;
+  width: 4px;
+  height: 4px;
   background: #bdbdbd;
   border-left: 2px solid #FFF;
   border-top: 2px solid #FFF;

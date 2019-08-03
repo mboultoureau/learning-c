@@ -2,6 +2,10 @@ class Timer {
     constructor({ timerHTML }) {
         this._html = timerHTML;
         this.time = 0;
+        this.timer = null;
+    }
+
+    start() {
         this.timer = setInterval(() => {
             this.time++;
 
@@ -16,6 +20,7 @@ class Timer {
     }
 
     reset() {
+        this.stop();
         this._html.textContent = `000`;
         this.time = 0;
     }
