@@ -16,7 +16,7 @@ void displayWelcome(){
 // Displays the hidden letters as stars
 void generateRevealedWord(char* revealedWord, const char* mysteredWord){
     int i = 1;
-    for(i = 1; i <= strlen(mysteredWord); i++) {
+    for(i = 1; (unsigned long)i <= strlen(mysteredWord); i++) {
         strcat(revealedWord, "*");
     }
 }

@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main(int argc, const char * argv[]) {
+int main() {
     // Declaration of variables
     long mysteryNumber = 0, enteredNumber = 0, max = 100, min = 1;
     int attempts = 0, keepPlaying = 1, twoPlayerMode = 2, changeSettings = 1, difficulty = 1;

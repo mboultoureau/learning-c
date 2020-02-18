@@ -16,7 +16,7 @@
 char readCharacter(void);
 int hasWon(const char* motMystere, const char* motDevoile);
 
-int main(int argc, const char * argv[]) {
+int main() {
     srand((int)time(NULL));
     int attempts = 0, i = 0, win = 0, keepPlaying = 1, twoPlayerMode = 0;
     char mysteryWord[MAX_LENGTH] = "", revealedWord[MAX_LENGTH] = "", letterEntered = 0;
@@ -46,7 +46,7 @@ int main(int argc, const char * argv[]) {
             letterEntered = readCharacter();
             win = 0;
             
-            for(i = 0; i < strlen(mysteryWord); i++) {
+            for(i = 0; (unsigned long)i < strlen(mysteryWord); i++) {
                 if (mysteryWord[i] == letterEntered) {
                     revealedWord[i] = letterEntered;
                     win = 1;
