@@ -1,0 +1,198 @@
+.todolist {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+
+/* HEADER */
+.todolist header {
+    display: flex;
+    flex-direction: column;
+}
+
+/* INPUT */
+.todolist header input {
+    padding: 20px 10px;
+    font-size: 1.3em;
+}
+
+/* FILTER */
+.todolist header ul {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.todolist header ul li {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.todolist header ul a {
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 0.2em;
+    text-align: center;
+}
+
+.todolist header ul a:hover {
+    background: #ccc;
+}
+
+.todolist header ul a.selected {
+    background: #000;
+    color: #fff;
+}
+
+/* MAIN */
+.todolist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo div {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #000;
+    position: relative;
+    height: 60px;
+}
+
+.todo {
+    position: relative;
+    height: 60px;
+    font-size: 1em;
+}
+
+/* EDITING */
+.todo input[type=text] {
+    display: none;
+}
+
+.todo.editing input[type=text] {
+    display: block;
+    position: absolute; 
+    background: transparent;
+    font-size: 1em;
+    margin: 20px 0 0 66px;
+    top: 0;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* DESTROY */
+.todo button.destroy {
+    content: '';
+    border-radius: 50%;
+    border: 1px solid #000;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.todo button.destroy:hover {
+    background: #ccc;
+}
+
+.todo button.destroy::after, .todo button.destroy::before {
+    content: '';
+    height: 2px;
+    width: 16px;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 13px;
+    left: 6px;
+    background: #000;
+}
+
+.todo button.destroy:active {
+    background: #000;
+}
+
+.todo button.destroy:active::after, .todo button.destroy:active::before {
+    background: #fff;
+}
+.todo button.destroy::before {
+    transform: rotate(-45deg);
+}
+
+/* CHECKBOX */
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+    height: 30px;
+}
+
+.checkbox p {
+    margin-left: 25px;
+}
+
+.checkbox input {
+    display: none;
+}
+
+.checkbox span {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+.checkbox span:hover {
+    background: #ccc;
+}
+
+.checkbox input:checked ~ span {
+    background: #000;
+}
+
+.checkbox input:checked ~ span::after {
+    position: absolute;
+    content: '';
+    left: 8px;
+    top: 4px;
+    height: 10px;
+    width: 5px;
+    transform: rotate(45deg);
+    border: solid #fff;
+    border-width: 0 3px 3px 0;
+}
+
+/* FOOTER */
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    border-top: 2px solid #000;
+    padding: 0;
+}
+
+footer button {
+    margin: 0 30px;
+    border: 1px solid #000;
+    border-radius: 0.2em;
+    padding: 10px;
+    cursor: pointer;
+}
+
+footer button:hover {
+    background: #ccc;
+}
+
+footer button:active {
+    background: #000;
+    color: #fff;
+}
