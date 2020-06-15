@@ -14,3 +14,4 @@ This repository contains various challenge codings performed in C, C++ and JavaS
 | 8 | 2048 | The famous game of 2048 | HTML, CSS, JavaScript |
 | 9 | Minesweeper | The classic minesweeper game | HTML, CSS, JavaScript |
 | 10 | Todolist | [A web application for task management](https://todoapp.mboultoureau.com/) | Vue.js |
+| 11 | 15 Puzzle | The 15-puzzle is a sliding puzzle that consists of a frame of numbered square tiles in random order with one tile missing. | Java, JavaFX
